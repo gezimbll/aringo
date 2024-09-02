@@ -65,7 +65,7 @@ func TestAringoNewARInGONoConnAttempts(t *testing.T) {
 	username := ""
 	password := ""
 	userAgent := ""
-	evChannel := make(chan map[string]interface{})
+	evChannel := make(chan map[string]any)
 	errChannel := make(chan error)
 	stopChan := make(<-chan struct{})
 	connectAttempts := 0
@@ -86,7 +86,7 @@ func TestAringoNewARInGO(t *testing.T) {
 	username := ""
 	password := ""
 	userAgent := ""
-	evChannel := make(chan map[string]interface{})
+	evChannel := make(chan map[string]any)
 	errChannel := make(chan error)
 	stopChan := make(chan struct{})
 	connectAttempts := -1
@@ -186,7 +186,7 @@ func TestAringowsEventListenerValidJSON(t *testing.T) {
 		userAgent:      "",
 		reconnects:     -1,
 		delayFunc:      fibDuration,
-		evChannel:      make(chan map[string]interface{}, 1),
+		evChannel:      make(chan map[string]any, 1),
 		errChannel:     make(chan error, 1),
 		wsListenerExit: stopChan,
 	}
@@ -206,7 +206,7 @@ func TestAringowsEventListenerValidJSON(t *testing.T) {
 		t.Fatalf("\nExpected: <%+v>, \nReceived: <%+v>", 1, len(ari.evChannel))
 	}
 
-	exp := map[string]interface{}{
+	exp := map[string]any{
 		"key": "value",
 	}
 	rcv := <-ari.evChannel
@@ -242,7 +242,7 @@ func TestAringowsEventListenerClosedCh(t *testing.T) {
 		userAgent:      "",
 		reconnects:     -1,
 		delayFunc:      fibDuration,
-		evChannel:      make(chan map[string]interface{}, 1),
+		evChannel:      make(chan map[string]any, 1),
 		errChannel:     make(chan error, 1),
 		wsListenerExit: stopChan,
 	}
@@ -285,7 +285,7 @@ func TestAringowsEventListenerReconnect(t *testing.T) {
 		userAgent:      "",
 		reconnects:     -1,
 		delayFunc:      fibDuration,
-		evChannel:      make(chan map[string]interface{}, 1),
+		evChannel:      make(chan map[string]any, 1),
 		errChannel:     make(chan error, 1),
 		wsListenerExit: stopChan,
 	}
@@ -317,7 +317,7 @@ func TestAringowsEventListenerInvalidJSONReturn(t *testing.T) {
 		userAgent:      "",
 		reconnects:     100,
 		delayFunc:      fibDuration,
-		evChannel:      make(chan map[string]interface{}),
+		evChannel:      make(chan map[string]any),
 		errChannel:     make(chan error, 1),
 		wsListenerExit: stopChan,
 	}
@@ -365,7 +365,7 @@ func TestAringowsEventListenerFailReconnect(t *testing.T) {
 		userAgent:      "",
 		reconnects:     0,
 		delayFunc:      fibDuration,
-		evChannel:      make(chan map[string]interface{}),
+		evChannel:      make(chan map[string]any),
 		errChannel:     make(chan error, 1),
 		wsListenerExit: stopChan,
 	}
@@ -449,7 +449,7 @@ func TestAringoCallSuccess(t *testing.T) {
 		httpClient:     http.DefaultClient,
 		reconnects:     -1,
 		delayFunc:      fibDuration,
-		evChannel:      make(chan map[string]interface{}),
+		evChannel:      make(chan map[string]any),
 		errChannel:     make(chan error),
 		wsListenerExit: stopChan,
 	}
@@ -489,7 +489,7 @@ func TestAringoCallNoGET(t *testing.T) {
 		httpClient:     http.DefaultClient,
 		reconnects:     -1,
 		delayFunc:      fibDuration,
-		evChannel:      make(chan map[string]interface{}),
+		evChannel:      make(chan map[string]any),
 		errChannel:     make(chan error),
 		wsListenerExit: stopChan,
 	}
@@ -530,7 +530,7 @@ func TestAringoCallDoErr(t *testing.T) {
 		httpClient:     http.DefaultClient,
 		reconnects:     -1,
 		delayFunc:      fibDuration,
-		evChannel:      make(chan map[string]interface{}),
+		evChannel:      make(chan map[string]any),
 		errChannel:     make(chan error),
 		wsListenerExit: stopChan,
 	}
@@ -554,7 +554,7 @@ func TestAringoCall204(t *testing.T) {
 	ari := &ARInGO{
 		reconnects:     -1,
 		delayFunc:      fibDuration,
-		evChannel:      make(chan map[string]interface{}),
+		evChannel:      make(chan map[string]any),
 		errChannel:     make(chan error),
 		wsListenerExit: stopChan,
 	}
@@ -585,7 +585,7 @@ func TestAringoCallNot200(t *testing.T) {
 	ari := &ARInGO{
 		reconnects:     -1,
 		delayFunc:      fibDuration,
-		evChannel:      make(chan map[string]interface{}),
+		evChannel:      make(chan map[string]any),
 		errChannel:     make(chan error),
 		wsListenerExit: stopChan,
 	}

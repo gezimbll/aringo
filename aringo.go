@@ -33,7 +33,7 @@ func NewErrUnexpectedReplyCode(statusCode int) error {
 	return fmt.Errorf("UNEXPECTED_REPLY_CODE: %d", statusCode)
 }
 
-func NewARInGO(wsUrl, wsOrigin, username, password, userAgent string, evChannel chan map[string]interface{},
+func NewARInGO(wsUrl, wsOrigin, username, password, userAgent string, evChannel chan map[string]any,
 	errChannel chan error, stopChan <-chan struct{}, connectAttempts, reconnects int,
 	maxReconnectInterval time.Duration, delayFunc func(time.Duration, time.Duration) func() time.Duration) (ari *ARInGO, err error) {
 	if connectAttempts == 0 {
@@ -77,7 +77,7 @@ type ARInGO struct {
 	reconnects           int
 	maxReconnectInterval time.Duration
 	delayFunc            func(time.Duration, time.Duration) func() time.Duration // used to create/reset the delay function
-	evChannel            chan map[string]interface{}                             // Events coming from Asterisk are posted here
+	evChannel            chan map[string]any                                     // Events coming from Asterisk are posted here
 	errChannel           chan error                                              // Errors are posted here
 	wsListenerExit       <-chan struct{}                                         // Signal dispatcher to stop listening
 }
@@ -91,7 +91,7 @@ func (ari *ARInGO) wsEventListener() {
 			return
 		default:
 		}
-		var ev map[string]interface{}
+		var ev map[string]any
 		if err := websocket.JSON.Receive(ari.ws, &ev); err != nil {
 			ari.disconnect()
 			select {
